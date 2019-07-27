@@ -67,11 +67,30 @@
       <router-view />
 
       <!-- footer -->
-      <v-footer>
-        <v-container>
-          <v-layout>
+      <v-footer class="mt-10">
+        <v-container class="text-center">
+          <v-layout wrap>
             <v-flex xs12>
-              사명: HELPUS
+              <span class="mr-4 mr-sm-3 mr-md-4" v-text="`사명: ${info.companyName}`" />
+              <span class="mr-sm-3 mr-md-4" v-text="`대표: ${info.CEO}`" />
+              <span class="hidden-xs-only" v-text="`주소: ${info.address}`" />
+            </v-flex>
+            <v-flex xs12 class="hidden-sm-and-up mt-2">
+              <span v-text="`주소: ${info.address}`" />
+            </v-flex>
+            <v-flex xs12 class="mt-2">
+              <span class="mr-4 mr-sm-3 mr-md-4" v-text="`사업자등록번호: ${info.registration}`" />
+              <span class="hidden-xs-only mr-4 mr-sm-3 mr-md-4" v-text="`Tel: ${info.tel}`" />
+              <span class="hidden-xs-only mr-sm-3 mr-md-4" v-text="`Email: ${info.email}`" />
+            </v-flex>
+            <v-flex xs12 class="hidden-sm-and-up mt-2">
+              <span v-text="`Tel: ${info.tel}`" />
+            </v-flex>
+            <v-flex xs12 class="hidden-sm-and-up mt-2">
+              <span v-text="`Email: ${info.email}`" />
+            </v-flex>
+            <v-flex xs12 class="mt-6">
+              <span>Copyright ⓒHELPUS Corporation. All Rights Reserved.</span>
             </v-flex>
           </v-layout>
         </v-container>
@@ -81,8 +100,6 @@
 </template>
 
 <script>
-// import _ from 'lodash';
-
 export default {
   name: 'App',
   data: () => ({
@@ -91,7 +108,7 @@ export default {
       companyName: 'HELPUS',
       CEO: '김두연',
       address: '충청남도 아산시 신창면 순천향로 22 순천향대학교 공과대학 9126호',
-      registrationNumber: '000-00-00000',
+      registration: '000-00-00000',
       tel: '010-7773-3461',
       email: 'ceo@help-us.kr',
     },
@@ -164,6 +181,8 @@ export default {
 <style lang="scss">
 /* global */
 
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); /* font */
+
 $sm: 960px;
 
 /* nav positioning */
@@ -183,9 +202,15 @@ button.icon-button > span > svg {
   width: 50%;
 }
 
-/* footer background */
+/* footer */
 footer {
-  background: #fafafa;
+  background: #fafafa !important;
+  font-size: 14px;
+}
+
+/* font */
+* {
+  font-family: "Nanum Gothic", sans-serif;
 }
 
 @media screen and (max-width: $sm) {

@@ -69,8 +69,16 @@
     </v-navigation-drawer>
 
     <v-content app>
-      <!-- content -->
-      <router-view />
+      <!-- contents -->
+      <v-container v-if="$route.name !== 'home'">
+        <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" />
+
+        <!-- pages that except for 'home' page -->
+        <router-view />
+      </v-container>
+
+      <!-- only home page -->
+      <router-view v-else />
 
       <!-- footer -->
       <v-footer class="mt-10">
@@ -127,7 +135,7 @@ export default {
         children: [
           {
             title: '소개',
-            link: 'introduce',
+            link: 'about-us',
           },
           {
             title: '연혁',
@@ -179,12 +187,41 @@ export default {
   methods: {
     /**
      * get height that extension toolbar (sub-toolbar height)
+     *
+     * @returns {number}
      */
     getExtensionHeight() {
       return _.flowRight(
         len => len * 48,
         _.partial(_.get, _, 'children.length'), // get length
         _.partial(_.maxBy, _, o => o.children.length), // get max length object
+      )(this.navItems);
+    },
+    /**
+     * get breadcrumb items
+     *
+     * @returns {[{ text: String, href: String }]}
+     */
+    getBreadcrumbItems() {
+      const routeName = this.$route.name;
+
+      return _.flowRight(
+        el => el && [
+          {
+            text: '홈', // root
+            href: '/',
+          },
+          {
+            text: el[0], // parent
+            disabled: true,
+          },
+          {
+            text: el[1].title, // children
+            href: el[1].link,
+          },
+        ],
+        nav => nav && [nav.title || '', _.find(nav.children, item => item.link === routeName)],
+        _.partial(_.find, _, nav => _.some(nav.children, ['link', routeName])),
       )(this.navItems);
     },
   },

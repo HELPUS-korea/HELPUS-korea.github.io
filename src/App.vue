@@ -29,9 +29,9 @@
         <div class="sub-toolbar-items">
           <v-layout>
             <v-item-group v-for="nav in navItems" :key="`sub-toolbar-${nav.title}`"
-              class="d-inline-block">
+              class="sub-toolbar-item d-inline-block">
               <v-item v-for="item in nav.children" :key="`sub-toolbar-item-${item.title}`">
-                <v-btn text width="120" v-text="item.title" :to="item.link" large />
+                <span class="pa-5 text-center"><a :href="item.link" v-text="item.title" /></span>
               </v-item>
             </v-item-group>
           </v-layout>
@@ -120,7 +120,7 @@ export default {
   name: 'App',
   data: () => ({
     drawer: false, // mobile toolbar
-    hoverNav: true, // sub-toolbar
+    hoverNav: false, // sub-toolbar
     info: { // footer
       companyName: 'HELPUS',
       CEO: '김두연',
@@ -305,5 +305,23 @@ div.sub-toolbar > div.shadow-title-logo {
 }
 div.sub-toolbar > div.sub-toolbar-items {
   width: 480px; // toolbar width
+}
+
+// sub-toolbar-item
+div.sub-toolbar-item {
+  width: 120px;
+}
+div.sub-toolbar-item > span {
+  width: 100%;
+  display: block;
+}
+div.sub-toolbar-item > span > a {
+  color: #6c6c6c;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+div.sub-toolbar-item > span > a:hover {
+  color: black;
+  text-decoration: none;
 }
 </style>

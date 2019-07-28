@@ -224,7 +224,7 @@ export default {
 /* global */
 
 // import fonts
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 #app {
   background-color: #ffffff;

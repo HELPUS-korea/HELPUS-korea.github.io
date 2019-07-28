@@ -17,5 +17,10 @@ export default new Router({
       name: 'about-us',
       component: () => import('./views/AboutUs.vue'),
     },
+    {
+      path: '/history',
+      name: 'history',
+      component: () => import('./views/History.vue'),
+    },
   ],
 });

@@ -31,7 +31,8 @@
             <v-item-group v-for="nav in navItems" :key="`sub-toolbar-${nav.title}`"
               class="sub-toolbar-item d-inline-block">
               <v-item v-for="item in nav.children" :key="`sub-toolbar-item-${item.title}`">
-                <span class="pa-5 text-center"><a :href="item.link" v-text="item.title" /></span>
+                <span class="pa-5 text-center">
+                  <router-link :to="item.link" v-text="item.title" /></span>
               </v-item>
             </v-item-group>
           </v-layout>

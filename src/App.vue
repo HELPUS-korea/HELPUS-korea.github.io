@@ -81,7 +81,7 @@
       <router-view v-else />
 
       <!-- footer -->
-      <v-footer class="mt-10">
+      <v-footer class="mt-10 white">
         <v-container class="text-center">
           <v-layout wrap>
             <v-flex xs12>
@@ -230,6 +230,10 @@ export default {
 
 <style lang="scss">
 /* global */
+
+#app {
+  background-color: #ffffff;
+}
 
 // import fonts
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);

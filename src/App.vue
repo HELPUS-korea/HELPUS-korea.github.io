@@ -120,7 +120,7 @@ export default {
   name: 'App',
   data: () => ({
     drawer: false, // mobile toolbar
-    hoverNav: false, // sub-toolbar
+    hoverNav: true, // sub-toolbar
     info: { // footer
       companyName: 'HELPUS',
       CEO: '김두연',
@@ -269,11 +269,12 @@ button.icon-button > span > svg {
 footer {
   background: #fafafa !important;
   font-size: 14px;
+  color: #646464;
 }
 
 // set font
 * {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Nanum Gothic" !important;
 }
 
 /* relative */

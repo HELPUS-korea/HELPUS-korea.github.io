@@ -22,5 +22,10 @@ export default new Router({
       name: 'history',
       component: () => import('./views/History.vue'),
     },
+    {
+      path: '/ci',
+      name: 'ci',
+      component: () => import('./views/CI.vue'),
+    },
   ],
 });

@@ -1,36 +1,42 @@
 <template>
   <v-app>
     <!-- toolbar -->
-    <v-app-bar app flat class="pt-1">
+    <v-app-bar app flat class="pt-1" @mouseleave="hoverNav = false"
+      :extension-height="getExtensionHeight()">
       <!-- title -->
       <v-toolbar-title>
-        <span><v-img src="./assets/img_logo_company.png" /></span>
+        <span @click="$router.push('/')" class="title-logo">
+          <v-img src="./assets/img_logo_company.png" /></span>
       </v-toolbar-title>
 
       <v-spacer class="hidden-md-and-up" />
 
       <!-- toolbar items -->
-      <v-toolbar-items>
-        <!-- hidden le sm -->
+      <v-toolbar-items class="hidden-sm-and-down">
         <v-btn v-for="item in navItems" :key="`nav-${item.title}`"
           v-text="item.title" text width="120"
-          class="hidden-sm-and-down" />
+          @mouseover="hoverNav = true" />
       </v-toolbar-items>
 
-      <!-- visible le sm -->
+      <!-- mobile toolbar button -->
       <v-btn text icon @click="drawer = true" class="icon-button hidden-md-and-up">
         <v-icons name="menu"></v-icons></v-btn>
 
-      <!--
-      <template v-slot:extension>
-        <div v-resize="resizeNav" ref="sub-toolbar" class="sub-toolbar">
-          <v-item-group>
-            <v-item><v-btn text x-large width="135">b1</v-btn></v-item>
-            <v-item><v-btn text x-large width="135">카카오 봇</v-btn></v-item>
-          </v-item-group>
+      <!-- sub-toolbar -->
+      <div v-if="hoverNav"
+        class="sub-toolbar hidden-sm-and-down d-flex justify-space-around white">
+        <div class="shadow-title-logo" />
+        <div class="sub-toolbar-items">
+          <v-layout>
+            <v-item-group v-for="nav in navItems" :key="`sub-toolbar-${nav.title}`"
+              class="d-inline-block">
+              <v-item v-for="item in nav.children" :key="`sub-toolbar-item-${item.title}`">
+                <v-btn text width="120" v-text="item.title" :to="item.link" large />
+              </v-item>
+            </v-item-group>
+          </v-layout>
         </div>
-      </template>
-      -->
+      </div>
     </v-app-bar>
 
     <!-- nav drawer -->
@@ -100,11 +106,14 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   name: 'App',
   data: () => ({
-    drawer: false,
-    info: {
+    drawer: false, // mobile toolbar
+    hoverNav: false, // sub-toolbar
+    info: { // footer
       companyName: 'HELPUS',
       CEO: '김두연',
       address: '충청남도 아산시 신창면 순천향로 22 순천향대학교 공과대학 9126호',
@@ -112,7 +121,7 @@ export default {
       tel: '010-7773-3461',
       email: 'ceo@help-us.kr',
     },
-    navItems: [
+    navItems: [ // navigation items
       {
         title: '헬퍼스',
         children: [
@@ -168,11 +177,15 @@ export default {
     ],
   }),
   methods: {
-    resizeNav() {
-      const navItemsElement = document.querySelector('header div.v-toolbar__items');
-      const subToolbarElement = this.$refs['sub-toolbar'];
-
-      subToolbarElement.style = `margin-left: ${navItemsElement.offsetLeft - subToolbarElement.offsetLeft}px`;
+    /**
+     * get height that extension toolbar (sub-toolbar height)
+     */
+    getExtensionHeight() {
+      return _.flowRight(
+        len => len * 48,
+        _.partial(_.get, _, 'children.length'), // get length
+        _.partial(_.maxBy, _, o => o.children.length), // get max length object
+      )(this.navItems);
     },
   },
 };
@@ -181,20 +194,29 @@ export default {
 <style lang="scss">
 /* global */
 
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); /* font */
+// import fonts
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 $sm: 960px;
 
-/* nav positioning */
+// nav positioning
 header > div.v-toolbar__content:first-child {
   justify-content: space-around;
   border-bottom: 3px solid #eee;
 }
-header > div.v-toolbar__extension:nth-child(2) {
-  border-bottom: 3px solid #eee;
+
+// nav button
+header > div.v-toolbar__content > div.v-toolbar__items > button.v-btn::before {
+  background-color: transparent;
+}
+header > div.v-toolbar__content > div.v-toolbar__items > button:hover::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  border-bottom: 3px solid;
 }
 
-/* buttons that has icon */
+// buttons that has icon
 button.icon-button > span {
   width: 100%;
 }
@@ -202,20 +224,44 @@ button.icon-button > span > svg {
   width: 50%;
 }
 
-/* footer */
+// footer
 footer {
   background: #fafafa !important;
   font-size: 14px;
 }
 
-/* font */
+// set font
 * {
   font-family: "Nanum Gothic", sans-serif;
 }
 
-@media screen and (max-width: $sm) {
+/* relative */
+
+// toolbar
+@media screen and (max-width: $sm) { // on mobile
   header > div.v-toolbar__content:first-child {
     justify-content: inherit;
   }
+}
+</style>
+
+<style lang="scss" scoped>
+// title logo
+span.title-logo {
+  cursor: pointer;
+}
+
+// sub-toolbar
+div.sub-toolbar {
+  position: absolute;
+  width: 100%;
+  top: 64px; // toolbar height
+  border-bottom: 3px solid #eee !important; // toolbar border
+}
+div.sub-toolbar > div.shadow-title-logo {
+  width: 139px; // title logo width
+}
+div.sub-toolbar > div.sub-toolbar-items {
+  width: 480px; // toolbar width
 }
 </style>

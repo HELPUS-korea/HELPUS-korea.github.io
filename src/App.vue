@@ -207,20 +207,11 @@ export default {
 
       return _.flowRight(
         el => el && [
-          {
-            text: '홈', // root
-            href: '/',
-          },
-          {
-            text: el[0], // parent
-            disabled: true,
-          },
-          {
-            text: el[1].title, // children
-            href: el[1].link,
-          },
+          { text: '홈' }, // root
+          { text: el[0] }, // parent
+          { text: el[1].title }, // children
         ],
-        nav => nav && [nav.title || '', _.find(nav.children, item => item.link === routeName)],
+        nav => nav && [nav.title, _.find(nav.children, item => item.link === routeName)],
         _.partial(_.find, _, nav => _.some(nav.children, ['link', routeName])),
       )(this.navItems);
     },
@@ -231,12 +222,12 @@ export default {
 <style lang="scss">
 /* global */
 
+// import fonts
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 #app {
   background-color: #ffffff;
 }
-
-// import fonts
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 $sm: 960px;
 
@@ -257,6 +248,11 @@ header > div.v-toolbar__content > div.v-toolbar__items > button:hover::after {
   border-bottom: 3px solid;
 }
 
+// breadcrumbs
+ul.v-breadcrumbs > li > div {
+  color: #646464;
+}
+
 // buttons that has icon
 button.icon-button > span {
   width: 100%;
@@ -269,7 +265,7 @@ button.icon-button > span > svg {
 footer {
   background: #fafafa !important;
   font-size: 14px;
-  color: #646464;
+  color: #646464 !important;
 }
 
 // set font

@@ -7,8 +7,7 @@
 
     <!-- texts -->
     <v-flex xs12 sm6>
-      <p class="mt-10 hidden-sm-and-up" v-text="' '" />
-      <h1 class="corp-name display-1">HELPUS</h1>
+      <h1 class="corp-name display-1 mt-10 mt-sm-0">HELPUS</h1>
       <p class="sub-title title">
         살아가는데 편안함이 제공되고,<br>
         소소한 만족을 느끼며 살아야 삶이다.

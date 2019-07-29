@@ -70,16 +70,15 @@
     </v-navigation-drawer>
 
     <v-content app>
-      <!-- contents -->
-      <v-container v-if="$route.name !== 'home'">
-        <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" />
+      <transition name="fade">
+        <!-- contents -->
+        <v-container>
+          <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" />
 
-        <!-- pages that except for 'home' page -->
-        <router-view />
-      </v-container>
-
-      <!-- only home page -->
-      <router-view v-else />
+          <!-- pages that except for 'home' page -->
+          <router-view />
+        </v-container>
+      </transition>
 
       <!-- footer -->
       <v-footer class="mt-10 white">
@@ -320,5 +319,13 @@ div.sub-toolbar-item > span > a {
 div.sub-toolbar-item > span > a:hover {
   color: black;
   text-decoration: none;
+}
+
+/* router transition */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .8s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

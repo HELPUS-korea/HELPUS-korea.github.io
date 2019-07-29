@@ -73,7 +73,7 @@
       <transition name="fade">
         <!-- contents -->
         <v-container>
-          <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" />
+          <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" v-if="$route.name !== 'home'" />
 
           <!-- pages that except for 'home' page -->
           <router-view />

@@ -24,13 +24,23 @@ export default {
         xs, sm, md, lg, xl,
       } = this.$vuetify.breakpoint;
 
-      return ((xs || sm || md) && 500) || ((lg || xl) && 800);
+      const height = ((xs || sm || md) && 500) || ((lg || xl) && 800);
+
+      // update stick height
+      if (this.$refs.stick) {
+        this.$refs.stick.style = `height: ${height}px`;
+      }
+
+      return height;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+$xs: 600px;
+$md: 1264px;
+
 .background {
   position: absolute;
   width: 100%;
@@ -41,11 +51,13 @@ export default {
   height: 800px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $xs) {
   span.main-centertext {
     width: 230px;
   }
+}
 
+@media screen and (max-width: $md) {
   .stick {
     height: 500px;
   }

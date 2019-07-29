@@ -31,19 +31,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stick {
-  height: 500px;
-}
-
 .background {
   position: absolute;
   width: 100%;
   left: 0; top: 0;
 }
 
+.stick {
+  height: 800px;
+}
+
 @media screen and (max-width: 600px) {
   span.main-centertext {
     width: 230px;
+  }
+
+  .stick {
+    height: 500px;
   }
 }
 </style>

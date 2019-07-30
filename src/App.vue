@@ -13,7 +13,7 @@
 
       <!-- toolbar items -->
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn v-for="item in navItems" :key="`nav-${item.title}`"
+        <v-btn v-for="item in getEnvData('menus')" :key="`nav-${item.title}`"
           v-text="item.title" text width="120"
           @mouseover="hoverNav = true" />
       </v-toolbar-items>
@@ -28,7 +28,7 @@
         <div class="shadow-title-logo" />
         <div class="sub-toolbar-items">
           <v-layout>
-            <v-item-group v-for="nav in navItems" :key="`sub-toolbar-${nav.title}`"
+            <v-item-group v-for="nav in getEnvData('menus')" :key="`sub-toolbar-${nav.title}`"
               class="sub-toolbar-item d-inline-block">
               <v-item v-for="item in nav.children" :key="`sub-toolbar-item-${item.title}`">
                 <span class="pa-5 text-center">
@@ -54,7 +54,7 @@
         </v-list-item>
 
         <!-- nav groups -->
-        <v-list-group v-for="nav in navItems" :key="`drawer-${nav.title}`">
+        <v-list-group v-for="nav in getEnvData('menus')" :key="`drawer-${nav.title}`">
           <!-- subject -->
           <template v-slot:activator>
             <v-list-item-title>{{ nav.title }}</v-list-item-title>
@@ -85,23 +85,26 @@
         <v-container class="text-center">
           <v-layout wrap>
             <v-flex xs12>
-              <span class="mr-4 mr-sm-3 mr-md-4" v-text="`사명: ${info.companyName}`" />
-              <span class="mr-sm-3 mr-md-4" v-text="`대표: ${info.CEO}`" />
-              <span class="hidden-xs-only" v-text="`주소: ${info.address}`" />
+              <span class="mr-4 mr-sm-3 mr-md-4" v-text="`사명: ${getEnvData('info.companyName')}`" />
+              <span class="mr-sm-3 mr-md-4" v-text="`대표: ${getEnvData('info.CEO')}`" />
+              <span class="hidden-xs-only" v-text="`주소: ${getEnvData('info.address')}`" />
             </v-flex>
             <v-flex xs12 class="hidden-sm-and-up mt-2">
-              <span v-text="`주소: ${info.address}`" />
+              <span v-text="`주소: ${getEnvData('info.address')}`" />
             </v-flex>
             <v-flex xs12 class="mt-2">
-              <span class="mr-4 mr-sm-3 mr-md-4" v-text="`사업자등록번호: ${info.registration}`" />
-              <span class="hidden-xs-only mr-4 mr-sm-3 mr-md-4" v-text="`Tel: ${info.tel}`" />
-              <span class="hidden-xs-only mr-sm-3 mr-md-4" v-text="`Email: ${info.email}`" />
+              <span class="mr-4 mr-sm-3 mr-md-4"
+                v-text="`사업자등록번호: ${getEnvData('info.registration')}`" />
+              <span class="hidden-xs-only mr-4 mr-sm-3 mr-md-4"
+                v-text="`Tel: ${getEnvData('info.tel')}`" />
+              <span class="hidden-xs-only mr-sm-3 mr-md-4"
+                v-text="`Email: ${getEnvData('info.email')}`" />
             </v-flex>
             <v-flex xs12 class="hidden-sm-and-up mt-2">
-              <span v-text="`Tel: ${info.tel}`" />
+              <span v-text="`Tel: ${getEnvData('info.tel')}`" />
             </v-flex>
             <v-flex xs12 class="hidden-sm-and-up mt-2">
-              <span v-text="`Email: ${info.email}`" />
+              <span v-text="`Email: ${getEnvData('info.email')}`" />
             </v-flex>
             <v-flex xs12 class="mt-6">
               <span>Copyright ⓒHELPUS Corporation. All Rights Reserved.</span>
@@ -115,74 +118,14 @@
 
 <script>
 import _ from 'lodash';
+import { getEnv, getPath } from './plugins/tools';
 
 export default {
   name: 'App',
   data: () => ({
     drawer: false, // mobile toolbar
     hoverNav: false, // sub-toolbar
-    info: { // footer
-      companyName: 'HELPUS',
-      CEO: '김두연',
-      address: '충청남도 아산시 신창면 순천향로 22 순천향대학교 공과대학 9126호',
-      registration: '000-00-00000',
-      tel: '010-7773-3461',
-      email: 'ceo@help-us.kr',
-    },
-    navItems: [ // navigation items
-      {
-        title: '헬퍼스',
-        children: [
-          {
-            title: '소개',
-            link: 'about-us',
-          },
-          {
-            title: '연혁',
-            link: 'history',
-          },
-          {
-            title: 'CI',
-            link: 'ci',
-          },
-        ],
-      },
-      {
-        title: '서비스',
-        children: [
-          {
-            title: '카카오 봇',
-            link: 'kakao-bot',
-          },
-          {
-            title: '셔틀웨어',
-            link: 'shuttle-where',
-          },
-        ],
-      },
-      {
-        title: '게시판',
-        children: [
-          {
-            title: '공지사항',
-            link: 'notice',
-          },
-        ],
-      },
-      {
-        title: '고객지원',
-        children: [
-          {
-            title: 'Q & A',
-            link: 'qna',
-          },
-          {
-            title: '오시는 길',
-            link: 'map',
-          },
-        ],
-      },
-    ],
+    env: null,
   }),
   methods: {
     /**
@@ -214,6 +157,18 @@ export default {
         _.partial(_.find, _, nav => _.some(nav.children, ['link', routeName])),
       )(this.navItems);
     },
+    /**
+     * get environments data (lazy)
+     *
+     * @param path object path
+     */
+    getEnvData(path) {
+      return getPath(this.env, path);
+    },
+  },
+  async mounted() {
+    // get env
+    this.env = await getEnv();
   },
 };
 </script>

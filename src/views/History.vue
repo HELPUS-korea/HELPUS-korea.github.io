@@ -9,7 +9,7 @@
     <v-flex xs12 sm6>
       <h1 class="corp-name display-1 mt-10 mt-sm-0">연혁</h1>
       <v-layout wrap class="mt-3">
-        <template v-for="(item, ind) in historyItems">
+        <template v-for="(item, ind) in getEnvData('histories')">
           <v-flex xs12 sm2 :key="`history-date-${ind}`" class="mt-2 mt-sm-0">
             <span class="sub-title" v-text="item.date" /></v-flex>
           <v-flex xs12 sm10 :key="`history-content-${ind}`">
@@ -21,21 +21,27 @@
 </template>
 
 <script>
+import { getEnv, getPath } from '../plugins/tools';
+
 export default {
   name: 'history',
   data() {
     return {
-      historyItems: [ // history
-        {
-          date: '2018.05',
-          content: "순천향대학교 창업동아리 'HELPUS' 설립",
-        },
-        {
-          date: '2018.07',
-          content: '아산시 청년 창업 아이디어 경진대회 지원사업 확정',
-        },
-      ],
+      env: null,
     };
+  },
+  methods: {
+    /**
+     * get environments data (lazy)
+     *
+     * @param path object path
+     */
+    getEnvData(path) {
+      return getPath(this.env, path);
+    },
+  },
+  async mounted() {
+    this.env = await getEnv();
   },
 };
 </script>

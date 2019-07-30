@@ -1,0 +1,53 @@
+info:
+  companyName: "HELPUS"
+  CEO: "김두연"
+  address: "충청남도 아산시 신창면 순천향로 22 순천향대학교 공과대학 9126호"
+  registration: "000-00-00000"
+  tel: "010-0000-0000"
+  email: "ceo@help-us.kr"
+
+menus:
+  -
+    title: "헬퍼스"
+    children:
+      -
+        title: "소개"
+        link: "about-us"
+      -
+        title: "연혁"
+        link: "history"
+      -
+        title: "CI"
+        link: "ci"
+  -
+    title: "서비스"
+    children:
+      -
+        title: "카카오 봇"
+        link: "kakao-bot"
+      -
+        title: "셔틀웨어"
+        link: "shuttle-where"
+  -
+    title: "게시판"
+    children:
+      -
+        title: "공지사항"
+        link: "notice"
+  -
+    title: "고객지원"
+    children:
+      -
+        title: "Q & A"
+        link: "qna"
+      -
+        title: "오시는 길"
+        link: "map"
+
+histories:
+  -
+    date: "2018.05"
+    content: "순천향대학교 창업동아리 'HELPUS' 설립"
+  -
+    date: "2018.07"
+    content: "아산시 청년 창업 아이디어 경진대회 지원사업 확정"

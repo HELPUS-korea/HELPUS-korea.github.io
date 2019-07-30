@@ -6,7 +6,7 @@
       <!-- title -->
       <v-toolbar-title>
         <span @click="$router.push('/')" class="title-logo">
-          <v-img src="./assets/img_logo_company.png" /></span>
+          <img src="./assets/img_logo_company.png"></span>
       </v-toolbar-title>
 
       <v-spacer class="hidden-md-and-up" />
@@ -73,7 +73,7 @@
       <transition name="fade">
         <!-- contents -->
         <v-container>
-          <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" v-if="$route.name !== 'home'" />
+          <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" />
 
           <!-- pages that except for 'home' page -->
           <router-view />
@@ -204,7 +204,6 @@ export default {
      */
     getBreadcrumbItems() {
       const routeName = this.$route.name;
-
       return _.flowRight(
         el => el && [
           { text: '홈' }, // root
@@ -221,22 +220,17 @@ export default {
 
 <style lang="scss">
 /* global */
-
 // import fonts
 @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
 #app {
   background-color: #ffffff;
 }
-
 $sm: 960px;
-
 // nav positioning
 header > div.v-toolbar__content:first-child {
   justify-content: space-around;
   border-bottom: 3px solid #eee;
 }
-
 // nav button
 header > div.v-toolbar__content > div.v-toolbar__items > button.v-btn::before {
   background-color: transparent;
@@ -247,12 +241,10 @@ header > div.v-toolbar__content > div.v-toolbar__items > button:hover::after {
   left: 0; right: 0; bottom: -1px;
   border-bottom: 3px solid;
 }
-
 // breadcrumbs
 ul.v-breadcrumbs > li > div {
   color: #646464;
 }
-
 // buttons that has icon
 button.icon-button > span {
   width: 100%;
@@ -260,21 +252,17 @@ button.icon-button > span {
 button.icon-button > span > svg {
   width: 50%;
 }
-
 // footer
 footer {
   background: #fafafa !important;
   font-size: 14px;
   color: #646464 !important;
 }
-
 // set font
 * {
   font-family: "Nanum Gothic" !important;
 }
-
 /* relative */
-
 // toolbar
 @media screen and (max-width: $sm) { // on mobile
   header > div.v-toolbar__content:first-child {
@@ -288,7 +276,6 @@ footer {
 span.title-logo {
   cursor: pointer;
 }
-
 // sub-toolbar
 div.sub-toolbar {
   position: absolute;
@@ -302,7 +289,6 @@ div.sub-toolbar > div.shadow-title-logo {
 div.sub-toolbar > div.sub-toolbar-items {
   width: 480px; // toolbar width
 }
-
 // sub-toolbar-item
 div.sub-toolbar-item {
   width: 120px;
@@ -320,7 +306,6 @@ div.sub-toolbar-item > span > a:hover {
   color: black;
   text-decoration: none;
 }
-
 /* router transition */
 .fade-enter-active, .fade-leave-active {
   transition: opacity .8s;

@@ -6,7 +6,8 @@
     <v-parallax class="background" src="../assets/img_main_bg.jpg" :height="getHeight()">
       <!-- center text -->
       <v-layout column align-center justify-center>
-        <span class="main-centertext"><v-img src="../assets/img_main_centertext.png" /></span>
+        <span class="main-centertext">
+          <img src="../assets/img_main_centertext.png"></span>
       </v-layout>
     </v-parallax>
   </div>
@@ -48,7 +49,7 @@ $md: 1264px;
 }
 
 .stick {
-  height: 800px;
+  height: 684px;
 }
 
 @media screen and (max-width: $xs) {
@@ -59,7 +60,7 @@ $md: 1264px;
 
 @media screen and (max-width: $md) {
   .stick {
-    height: 500px;
+    height: 452px;
   }
 }
 </style>

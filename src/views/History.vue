@@ -2,7 +2,7 @@
   <v-layout class="mt-12" align-center justify-center fill-height wrap>
     <!-- ci -->
     <v-flex xs12 sm6>
-      <v-img class="ma-auto" src="../assets/icn_helpus_ci.jpg" max-width="200" />
+      <img class="ci ma-auto" src="../assets/icn_helpus_ci.jpg">
     </v-flex>
 
     <!-- texts -->
@@ -46,5 +46,9 @@ export default {
 }
 .sub-title {
   color: #a0a0a0;
+}
+
+.ci {
+  max-width: 200px;
 }
 </style>

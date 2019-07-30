@@ -1,10 +1,13 @@
 <template>
   <v-layout class="mt-12" align-center justify-center fill-height wrap>
-    <v-flex sm10>
+    <v-flex lg7 sm10>
       <v-layout wrap>
+        <!-- ci wireframe -->
         <v-flex xs12 sm6 row justify-center justify-sm-start>
-          <v-img class="align-self-center" src="../assets/ci_wireframe.jpg" max-width="200" />
+          <img class="ci-wireframe align-self-center" src="../assets/ci_wireframe.jpg">
         </v-flex>
+
+        <!-- contents -->
         <v-flex xs12 sm6>
           <h4 class="contents title font-weight-bold mt-5 mt-sm-0">모양(Shape)</h4>
           <p class="contents">
@@ -19,8 +22,10 @@
             하나의 작품, 믿음, 편안함을 하나의 CI로 표현하였습니다.
           </p>
         </v-flex>
-        <v-flex xs12 class="mt-5 mt-sm-0">
-          <v-img class="ma-auto" src="../assets/logo_big.jpg" />
+
+        <!-- logo -->
+        <v-flex xs12 class="pt-11 text-center">
+          <img class="logo ma-auto" src="../assets/logo_big.jpg">
         </v-flex>
       </v-layout>
     </v-flex>
@@ -34,7 +39,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ci-wireframe {
+  max-width: 200px;
+}
+
 .sub-title, .contents {
   color: #646464
+}
+
+img.logo {
+  width: 100%;
 }
 </style>

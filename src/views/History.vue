@@ -1,7 +1,7 @@
 <template>
   <v-layout class="mt-12" align-center justify-center fill-height wrap>
     <!-- ci -->
-    <v-flex xs12 sm6>
+    <v-flex xs12 sm6 class="text-center">
       <img class="ci ma-auto" src="../assets/icn_helpus_ci.jpg">
     </v-flex>
 

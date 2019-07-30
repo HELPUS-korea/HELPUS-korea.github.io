@@ -6,7 +6,8 @@
     <v-parallax class="background" src="../assets/img_main_bg.jpg" :height="getHeight()">
       <!-- center text -->
       <v-layout column align-center justify-center>
-        <span class="main-centertext"><v-img src="../assets/img_main_centertext.png" /></span>
+        <span class="main-centertext">
+          <img src="../assets/img_main_centertext.png"></span>
       </v-layout>
     </v-parallax>
   </div>
@@ -24,16 +25,22 @@ export default {
         xs, sm, md, lg, xl,
       } = this.$vuetify.breakpoint;
 
-      return ((xs || sm || md) && 500) || ((lg || xl) && 800);
+      const height = ((xs || sm || md) && 500) || ((lg || xl) && 800);
+
+      // update stick height
+      if (this.$refs.stick) {
+        this.$refs.stick.style = `height: ${height}px`;
+      }
+
+      return height;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.stick {
-  height: 500px;
-}
+$xs: 600px;
+$md: 1264px;
 
 .background {
   position: absolute;
@@ -41,9 +48,19 @@ export default {
   left: 0; top: 0;
 }
 
-@media screen and (max-width: 600px) {
+.stick {
+  height: 684px;
+}
+
+@media screen and (max-width: $xs) {
   span.main-centertext {
     width: 230px;
+  }
+}
+
+@media screen and (max-width: $md) {
+  .stick {
+    height: 452px;
   }
 }
 </style>

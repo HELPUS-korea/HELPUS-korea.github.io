@@ -73,7 +73,7 @@
       <transition name="fade">
         <!-- contents -->
         <v-container>
-          <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" />
+          <v-breadcrumbs :items="getBreadcrumbItems()" divider=">" class="pl-0 pl-sm-12" />
 
           <!-- pages that except for 'home' page -->
           <router-view />
@@ -134,11 +134,11 @@ export default {
      * @returns {number}
      */
     getExtensionHeight() {
-      return _.flowRight(
+      return this.env && _.flowRight(
         len => len * 48,
         _.partial(_.get, _, 'children.length'), // get length
         _.partial(_.maxBy, _, o => o.children.length), // get max length object
-      )(this.navItems);
+      )(this.env.menus);
     },
     /**
      * get breadcrumb items
@@ -147,7 +147,8 @@ export default {
      */
     getBreadcrumbItems() {
       const routeName = this.$route.name;
-      return _.flowRight(
+
+      return (this.env && _.flowRight(
         el => el && [
           { text: '홈' }, // root
           { text: el[0] }, // parent
@@ -155,7 +156,7 @@ export default {
         ],
         nav => nav && [nav.title, _.find(nav.children, item => item.link === routeName)],
         _.partial(_.find, _, nav => _.some(nav.children, ['link', routeName])),
-      )(this.navItems);
+      )(this.env.menus)) || [];
     },
     /**
      * get environments data (lazy)
@@ -175,49 +176,61 @@ export default {
 
 <style lang="scss">
 /* global */
+
 // import fonts
 @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 #app {
   background-color: #ffffff;
 }
+
 $sm: 960px;
+
 // nav positioning
 header > div.v-toolbar__content:first-child {
   justify-content: space-around;
   border-bottom: 3px solid #eee;
 }
+
 // nav button
 header > div.v-toolbar__content > div.v-toolbar__items > button.v-btn::before {
   background-color: transparent;
 }
+
 header > div.v-toolbar__content > div.v-toolbar__items > button:hover::after {
   content: '';
   position: absolute;
   left: 0; right: 0; bottom: -1px;
   border-bottom: 3px solid;
 }
+
 // breadcrumbs
 ul.v-breadcrumbs > li > div {
   color: #646464;
 }
+
 // buttons that has icon
 button.icon-button > span {
   width: 100%;
 }
+
 button.icon-button > span > svg {
   width: 50%;
 }
+
 // footer
 footer {
   background: #fafafa !important;
   font-size: 14px;
   color: #646464 !important;
 }
+
 // set font
 * {
   font-family: "Nanum Gothic" !important;
 }
+
 /* relative */
+
 // toolbar
 @media screen and (max-width: $sm) { // on mobile
   header > div.v-toolbar__content:first-child {
@@ -231,6 +244,7 @@ footer {
 span.title-logo {
   cursor: pointer;
 }
+
 // sub-toolbar
 div.sub-toolbar {
   position: absolute;
@@ -238,33 +252,41 @@ div.sub-toolbar {
   top: 64px; // toolbar height
   border-bottom: 3px solid #eee !important; // toolbar border
 }
+
 div.sub-toolbar > div.shadow-title-logo {
   width: 139px; // title logo width
 }
+
 div.sub-toolbar > div.sub-toolbar-items {
   width: 480px; // toolbar width
 }
+
 // sub-toolbar-item
 div.sub-toolbar-item {
   width: 120px;
 }
+
 div.sub-toolbar-item > span {
   width: 100%;
   display: block;
 }
+
 div.sub-toolbar-item > span > a {
   color: #6c6c6c;
   text-decoration: none;
   transition: color 0.2s ease;
 }
+
 div.sub-toolbar-item > span > a:hover {
   color: black;
   text-decoration: none;
 }
+
 /* router transition */
 .fade-enter-active, .fade-leave-active {
   transition: opacity .8s;
 }
+
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
